@@ -8,7 +8,7 @@ public class Compulsory2 {
         ArrayList<Event> events = new ArrayList<>();
         ArrayList<Room> rooms = new ArrayList<>();
 
-        events.add(new Event(EventType.COURSE, 100, LocalTime.of(8, 0), LocalTime.of(10, 0)));        events.add(new Event(EventType.COURSE, 100, LocalTime.of(8, 0), LocalTime.of(10, 0)));
+        events.add(new Event(EventType.COURSE, 100, LocalTime.of(8, 0), LocalTime.of(10, 0)));
         events.add(new Event(EventType.COURSE, 100, LocalTime.of(10, 0), LocalTime.of(12, 0)));
         events.add(new Event(EventType.LAB, 30, LocalTime.of(8, 0), LocalTime.of(10, 0)));
         events.add(new Event(EventType.LAB, 30, LocalTime.of(8, 0), LocalTime.of(10, 0)));
