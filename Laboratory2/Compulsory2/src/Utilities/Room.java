@@ -52,8 +52,8 @@ public class Room {
                 roomType = "Unknown";
         }
         return "Room{" +
-                "name='" + roomType + '\'' +
-                ", type=" + type +
+                "name='" + name + '\'' +
+                ", type=" + roomType +
                 ", capacity=" + capacity +
                 '}';
     }

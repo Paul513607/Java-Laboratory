@@ -4,15 +4,15 @@ import java.time.LocalTime;
 
 public class Event {
     private EventType name;
-    private int capacity;
+    private int size;
     LocalTime startTime, endTime;
 
     public Event() {
     }
 
-    public Event(EventType name, int capacity, LocalTime startTime, LocalTime endTime) {
+    public Event(EventType name, int size, LocalTime startTime, LocalTime endTime) {
         this.name = name;
-        this.capacity = capacity;
+        this.size = size;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -25,12 +25,12 @@ public class Event {
         this.name = name;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public int getSize() {
+        return size;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public LocalTime getStartTime() {
@@ -67,7 +67,7 @@ public class Event {
         }
         return "Event{" +
                 "name=" + eventName +
-                ", capacity=" + capacity +
+                ", capacity=" + size +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 '}';

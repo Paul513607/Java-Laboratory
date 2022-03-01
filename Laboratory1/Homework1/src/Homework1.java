@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class Homework1 {
-    static final public int MAX_SIZE = 30000;
+    static final public int MAX_SIZE = 10000;
     static public long startTime, endTime, timeElapsed;
 
     static private void displaySyntaxMessage() {
@@ -206,12 +206,10 @@ public class Homework1 {
         int p = Integer.parseInt(args[1]);
 
         ArrayList<String> words = generateWords(n, p, args);
-        if (n < MAX_SIZE) {
-            for (String word : words) {
-                System.out.print(word + " ");
-            }
-            System.out.println("");
+        for (String word : words) {
+            System.out.print(word + " ");
         }
+        System.out.println("");
 
         boolean[][] neighbors = generateNeighborhoodMatrix(words, n);
         if (n < MAX_SIZE) {
@@ -241,10 +239,10 @@ public class Homework1 {
         System.out.print("\n\n\n");
         Inventory inventory = new Inventory();
         inventory = intersectAll(charWordSet);
-        System.out.println(inventory.getIntersections());
-        System.out.println(inventory.getIndexInter());
+        // System.out.println(inventory.getIntersections());
+        // System.out.println(inventory.getIndexInter());
 
-        System.out.print("\n\n\n");
+        // System.out.print("\n\n\n");
         // HashSet<String> union = naiveSolution(charWordSet, inventory);
         HashSet<String> union = goodSolution(charWordSet, inventory);
         System.out.println("Size: " + union.size() + " Subset: " + union);
