@@ -1,7 +1,9 @@
 package Nodes;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
+// A computer is a node that is identifiable and has storage
 public class Computer extends Node implements Identifiable, Storage{
     private String ipAddress;
     private double storageCapacity;
@@ -36,11 +38,11 @@ public class Computer extends Node implements Identifiable, Storage{
     @Override
     public String toString() {
         return "Computer{" +
-                "ipAddress='" + ipAddress + '\'' +
-                ", storageCapacity=" + storageCapacity + " GB" +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", macAddress='" + macAddress + '\'' +
                 ", mapLocation='" + mapLocation + '\'' +
+                ", ipAddress='" + ipAddress + '\'' +
+                ", storageCapacity=" + storageCapacity +
                 '}';
     }
 
@@ -56,5 +58,28 @@ public class Computer extends Node implements Identifiable, Storage{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), ipAddress, storageCapacity);
+    }
+
+    // We override the default method 'getCapacityInUnit' from the interface Storage
+    @Override
+    public BigDecimal getCapacityInUnit(BytesUnits unit) {
+        BigDecimal bigStorageCapacity = BigDecimal.valueOf(storageCapacity);
+        switch (unit) {
+            case B:
+                bigStorageCapacity = bigStorageCapacity.multiply(BigDecimal.valueOf(1000000000));
+                break;
+            case KB:
+                bigStorageCapacity = bigStorageCapacity.multiply(BigDecimal.valueOf(1000000));
+                break;
+            case MB:
+                bigStorageCapacity = bigStorageCapacity.multiply(BigDecimal.valueOf(1000));
+                break;
+            case GB:
+                break;
+            case TB:
+                bigStorageCapacity = bigStorageCapacity.divide(BigDecimal.valueOf(1000));
+                break;
+        }
+        return bigStorageCapacity;
     }
 }

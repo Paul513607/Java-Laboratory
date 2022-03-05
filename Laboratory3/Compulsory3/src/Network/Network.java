@@ -1,12 +1,16 @@
 package Network;
 
+import Network.NetworkEdge.NetworkEdge;
+import Nodes.Identifiable;
 import Nodes.Node;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Map;
 
+// A network contains a list of nodes which are identified by their IDs (names)
 public class Network {
     private ArrayList<Node> nodeList = new ArrayList<>();
-    private ArrayList<NetworkEdge> networkEdges = new ArrayList<>();
 
     public Network() {
     }
@@ -15,16 +19,15 @@ public class Network {
         return nodeList;
     }
 
-    public ArrayList<NetworkEdge> getNetworkEdges() {
-        return networkEdges;
-    }
-
     @Override
     public String toString() {
         return "Network{" +
                 "nodeList=" + nodeList +
-                ", networkEdges=" + networkEdges +
                 '}';
+    }
+
+    public int getNumberOfNodes() {
+        return nodeList.size();
     }
 
     public void printNodeList() {
@@ -40,6 +43,18 @@ public class Network {
         return false;
     }
 
+    public int getNodeIdIndex(String nodeId) {
+        if (existsNodeId(nodeId)) {
+            int index = 0;
+            for (Node node : nodeList) {
+                if (nodeId.equals(node.getName()))
+                    return index;
+                index++;
+            }
+        }
+        return -1;
+    }
+
     public void addNode(Node node) throws IllegalArgumentException {
         if (existsNodeId(node.getName()))
             throw new IllegalArgumentException("The node " + node + " already exists in the list.");
@@ -47,23 +62,45 @@ public class Network {
             nodeList.add(node);
     }
 
-    public void addEdge(NetworkEdge edge) throws IllegalArgumentException {
-        if (!existsNodeId(edge.getSrcNode()) || !existsNodeId(edge.getDestNode()))
-            throw new IllegalArgumentException("Either the src or dest node does not exist in the nodeList.");
-        else
-            networkEdges.add(edge);
-    }
-
     public void removeNode(Node node) {
         if (nodeList.contains(node))
             nodeList.remove(node);
-        for (NetworkEdge edge : networkEdges)
-            if (edge.getSrcNode().equals(node)  || edge.getDestNode().equals(node))
-                networkEdges.remove(edge);
     }
 
-    public void removeNetworkEdge(NetworkEdge edge) {
-        if (networkEdges.contains(edge))
-            networkEdges.remove(edge);
+    public void addLinkToNode(String nodeId1, String nodeId2, double timeCost) throws IndexOutOfBoundsException{
+        int index1 = getNodeIdIndex(nodeId1);
+        if (index1 == -1)
+            throw new IndexOutOfBoundsException("Node with id: " + nodeId1 + " is not in the nodeList.");
+        int index2 = getNodeIdIndex(nodeId2);
+        if (index2 == -1)
+            throw new IndexOutOfBoundsException("Node with id: " + nodeId2 + " is not in the nodeList.");
+        Node node1 = nodeList.get(index1);
+        Node node2 = nodeList.get(index2);
+        // Because a link goes both ways, we add nodes to both of the parameter nodes
+        node1.addLink(node2, timeCost);
+        node2.addLink(node1, timeCost);
+    }
+
+    public void printNetworkSchema() {
+        System.out.println("The network schema is:");
+        for (Node node : nodeList) {
+            System.out.print("Node: ");
+            System.out.print(node);
+            System.out.print(", with links:\n");
+            node.getLinksTimeCosts().entrySet().stream()
+                    .forEach(pair -> System.out.println("\t" + node.getName() + " -> " + pair.getKey().getName() + " timeCost: " + pair.getValue()));
+        }
+    }
+
+    public void displayIdentifiableNodes() {
+        ArrayList<Node> identifiableNodes = new ArrayList<>();
+        for (Node node : nodeList) {
+            if (node instanceof Identifiable)
+                identifiableNodes.add(node);
+        }
+        identifiableNodes.sort(Comparator.comparing(o -> ((Identifiable) o).getIpAddress()));
+        System.out.println("The identifiable nodes list:");
+        for (Node node : identifiableNodes)
+            System.out.println(node);
     }
 }

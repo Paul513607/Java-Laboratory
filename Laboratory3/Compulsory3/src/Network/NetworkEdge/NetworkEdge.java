@@ -1,4 +1,4 @@
-package Network;
+package Network.NetworkEdge;
 
 import java.util.Objects;
 

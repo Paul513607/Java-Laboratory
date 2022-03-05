@@ -2,6 +2,7 @@ package Nodes;
 
 import java.util.Objects;
 
+// A routed is a node that is identifiable
 public class Router extends Node implements Identifiable{
     private String ipAddress;
 
