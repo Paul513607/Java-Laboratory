@@ -8,7 +8,7 @@ public class Computer extends Node implements Identifiable, Storage{
     private String ipAddress;
     private double storageCapacity;
 
-    public Computer(String name, String macAddress, String mapLocation, String ipAddress, double storageCapacity) {
+    public Computer(String name, String macAddress, Location mapLocation, String ipAddress, double storageCapacity) {
         super(name, macAddress, mapLocation);
         this.ipAddress = ipAddress;
         this.storageCapacity = storageCapacity;
@@ -40,7 +40,7 @@ public class Computer extends Node implements Identifiable, Storage{
         return "Computer{" +
                 "name='" + name + '\'' +
                 ", macAddress='" + macAddress + '\'' +
-                ", mapLocation='" + mapLocation + '\'' +
+                ", mapLocation=" + mapLocation +
                 ", ipAddress='" + ipAddress + '\'' +
                 ", storageCapacity=" + storageCapacity +
                 '}';

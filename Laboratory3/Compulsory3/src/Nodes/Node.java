@@ -8,11 +8,11 @@ import java.util.Objects;
 public abstract class Node {
     protected final String name;
     protected String macAddress;
-    protected String mapLocation;
+    protected Location mapLocation;
     // A map which holds the links to other nodes for the current node, as well as the cost of each of those links
     Map<Node, Double> linksTimeCosts;
 
-    public Node(String name, String macAddress, String mapLocation) {
+    public Node(String name, String macAddress, Location mapLocation) {
         this.name = name;
         this.macAddress = macAddress;
         this.mapLocation = mapLocation;
@@ -31,11 +31,11 @@ public abstract class Node {
         this.macAddress = macAddress;
     }
 
-    public String getMapLocation() {
+    public Location getMapLocation() {
         return mapLocation;
     }
 
-    public void setMapLocation(String mapLocation) {
+    public void setMapLocation(Location mapLocation) {
         this.mapLocation = mapLocation;
     }
 
@@ -51,7 +51,7 @@ public abstract class Node {
     public String toString() {
         return "Node{" +
                 "macAddress='" + macAddress + '\'' +
-                ", mapLocation='" + mapLocation + '\'' +
+                ", mapLocation=" + mapLocation +
                 '}';
     }
 

@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Router extends Node implements Identifiable{
     private String ipAddress;
 
-    public Router(String name, String macAddress, String mapLocation, String ipAddress) {
+    public Router(String name, String macAddress, Location mapLocation, String ipAddress) {
         super(name, macAddress, mapLocation);
         this.ipAddress = ipAddress;
     }
@@ -26,7 +26,7 @@ public class Router extends Node implements Identifiable{
         return "Router{" +
                 "name='" + name + '\'' +
                 ", macAddress='" + macAddress + '\'' +
-                ", mapLocation='" + mapLocation + '\'' +
+                ", mapLocation=" + mapLocation +
                 ", ipAddress='" + ipAddress + '\'' +
                 '}';
     }

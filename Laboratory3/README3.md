@@ -18,7 +18,7 @@ The Network class will contain a List of nodes. <br />
 Create and print all the nodes in the network (without the time costs). <br /> <br />
 
 We create two interfaces, Identifiable and Storage.  <br />
-We create the abstract class of Node. <br />
+We create the abstract class of Node which has a name (String), macAdress (String), a location (which is on object of the class Location which specifier two doubles, latitide and longitude coordinates) and a map of nodes and doubles, which specifies with whom a node object has links with as well as the timeCosts of those links. <br />
 Afterwards, we create three classes: Computer, Router, Switch. All of them extent the class Node, while Computer and Router implement Identifiable (since they have ipAdresses) and Computer implements Storage as well (since it has a storageCapacity). <br />
 We create the NetworkEdge class, which designs an edge between two nodes (identified by their names), along with it's time cost. <br />
 We create the Network class, which contains a list of nodes and a list of edges. We will not allow for the same node (identified by name) to be put in twice, as well as check that each edge's src and dest nodes are already in out list of nodes. We print the nodeList. <br />
