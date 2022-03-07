@@ -36,3 +36,9 @@ To display the network schema, we print the nodes then we iterate through their 
 The way we get the minimum cost from a node to the others is with Dijkstra's algorithm, since the links and the nodes form a graph, and we can use it since the time costs can't be of negative value. We initialize the costs from the first node to the others (putting INFINITY -- Integer.MAX_VALUE when we don't have a direct path) and we visit the first node. While there are still unvisited nodes, we get the one whose path is smallest, we go through it's neighbors and update the minimum path cost if necessary. In the end we'll have the time costs from the startingNode to all the other nodes. <br />
 
 # Bonus3
+
+In addition to the time cost, each link between two network nodes has a probability of failure. <br />
+Implement an efficient agorithm to determine the safest route for a packet to travel between two given nodes. <br />
+Generate random network instances with known optimum and test your algorithm using JUnit or other framework. <br /> <br />
+
+For the link probabilities, in the node class we add another map (hashmap), which maps a Node object to a double (probability). Whenever the add a link, we need to specify both the timeCost and failProbability. We check that timeCost > 0 and that failProbability is in \[0, 1]. <br />
