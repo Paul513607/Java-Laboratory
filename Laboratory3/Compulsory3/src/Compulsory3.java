@@ -1,6 +1,6 @@
-import Algorithms.DijkstraAlgorithm;
-import Network.*;
-import Nodes.*;
+import algorithms.DijkstraAlgorithm;
+import network.*;
+import nodes.*;
 
 import java.math.BigDecimal;
 

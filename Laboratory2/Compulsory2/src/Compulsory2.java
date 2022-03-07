@@ -1,5 +1,5 @@
-import Event.*;
-import Room.*;
+import event.*;
+import room.*;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

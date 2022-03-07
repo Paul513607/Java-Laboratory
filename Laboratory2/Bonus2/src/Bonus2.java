@@ -1,8 +1,8 @@
-import ColoringAlgorithms.DSaturColoring;
-import ColoringAlgorithms.GreedyColoring;
-import Graph.Edge;
-import Graph.UnorderedGraph;
-import Utilities.EdgeListGenerator;
+import coloringalgorithms.DSaturColoring;
+import coloringalgorithms.GreedyColoring;
+import graph.Edge;
+import graph.UnorderedGraph;
+import utilities.EdgeListGenerator;
 
 import java.util.ArrayList;
 import java.util.Random;

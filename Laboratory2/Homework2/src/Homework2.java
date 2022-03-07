@@ -1,6 +1,6 @@
-import Event.*;
-import Room.*;
-import Problem.*;
+import event.*;
+import room.*;
+import problem.*;
 
 import java.time.LocalTime;
 
