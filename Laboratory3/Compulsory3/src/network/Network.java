@@ -65,7 +65,12 @@ public class Network {
             nodeList.remove(node);
     }
 
-    public void addLinkToNode(String nodeId1, String nodeId2, double timeCost) throws IndexOutOfBoundsException{
+    public void addLinkToNode(String nodeId1, String nodeId2, double timeCost, double failProbability) throws IndexOutOfBoundsException, IllegalArgumentException {
+        if (timeCost < 0)
+            throw new IllegalArgumentException("Time cost of link must be a positive number!");
+        if (failProbability < 0 || failProbability > 1)
+            throw new IllegalArgumentException("The probability of failure on a link must be a number in [0, 1]");
+
         int index1 = getNodeIdIndex(nodeId1);
         if (index1 == -1)
             throw new IndexOutOfBoundsException("Node with id: " + nodeId1 + " is not in the nodeList.");
@@ -75,8 +80,8 @@ public class Network {
         Node node1 = nodeList.get(index1);
         Node node2 = nodeList.get(index2);
         // Because a link goes both ways, we add nodes to both of the parameter nodes
-        node1.addLink(node2, timeCost);
-        node2.addLink(node1, timeCost);
+        node1.addLink(node2, timeCost, failProbability);
+        node2.addLink(node1, timeCost, failProbability);
     }
 
     public void printNetworkSchema() {
@@ -86,7 +91,8 @@ public class Network {
             System.out.print(node);
             System.out.print(", with links:\n");
             node.getLinksTimeCosts().entrySet().stream()
-                    .forEach(pair -> System.out.println("\t" + node.getName() + " -> " + pair.getKey().getName() + " timeCost: " + pair.getValue()));
+                    .forEach(pair -> System.out.println("\t" + node.getName() + " -> " + pair.getKey().getName() +
+                            " timeCost: " + pair.getValue() + ", failProbability: " + node.getLinksFailProbabilities().get(pair.getKey())));
         }
     }
 

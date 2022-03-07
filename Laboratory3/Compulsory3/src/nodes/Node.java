@@ -11,12 +11,14 @@ public abstract class Node {
     protected Location mapLocation;
     // A map which holds the links to other nodes for the current node, as well as the cost of each of those links
     Map<Node, Double> linksTimeCosts;
+    Map<Node, Double> linksFailProbabilities;
 
     public Node(String name, String macAddress, Location mapLocation) {
         this.name = name;
         this.macAddress = macAddress;
         this.mapLocation = mapLocation;
         linksTimeCosts = new HashMap<>();
+        linksFailProbabilities = new HashMap<>();
     }
 
     public String getName() {
@@ -47,6 +49,14 @@ public abstract class Node {
         this.linksTimeCosts = timeCosts;
     }
 
+    public Map<Node, Double> getLinksFailProbabilities() {
+        return linksFailProbabilities;
+    }
+
+    public void setLinksFailProbabilities(Map<Node, Double> linksFailProbabilities) {
+        this.linksFailProbabilities = linksFailProbabilities;
+    }
+
     @Override
     public String toString() {
         return "Node{" +
@@ -68,8 +78,8 @@ public abstract class Node {
         return Objects.hash(name, macAddress, mapLocation);
     }
 
-    public void addLink(Node node, double timeCost) {
-        if (timeCost < 0) return;
+    public void addLink(Node node, double timeCost, double failProbability) {
         linksTimeCosts.put(node, timeCost);
+        linksFailProbabilities.put(node, failProbability);
     }
 }
