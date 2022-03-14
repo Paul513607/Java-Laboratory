@@ -8,8 +8,10 @@ import java.util.stream.Stream;
 public class Compulsory4 {
     public static void main(String[] args) {
         Set<Intersection> intersectionSet = new HashSet<>();
-        LongStream.range(1, 10)
-                .forEach(x -> intersectionSet.add(new Intersection(("i" + x))));
+        var intersectionArray = LongStream.range(1, 10)
+                .mapToObj(x -> new Intersection(("i" + x)))
+                        .toArray(Intersection[]::new);
+        intersectionSet = Set.of(intersectionArray);
         intersectionSet.stream()
                 .forEach(intersection -> System.out.println(intersection));
 
