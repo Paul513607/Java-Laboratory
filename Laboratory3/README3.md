@@ -42,3 +42,6 @@ Implement an efficient agorithm to determine the safest route for a packet to tr
 Generate random network instances with known optimum and test your algorithm using JUnit or other framework. <br /> <br />
 
 For the link probabilities, in the node class we add another map (hashmap), which maps a Node object to a double (probability). Whenever the add a link, we need to specify both the timeCost and failProbability. We check that timeCost > 0 and that failProbability is in \[0, 1]. <br />
+In order to find the safest path between startNode and endNode in the network, we write an algorithm which gets all paths between two nodes (through a repeated DFS traversal), and whenever we reach the endNode, we compare the current cumulative probability (the product of the probabilities on the path) with the maximim one found, and we change it if needed. <br />
+The repeated DFS traversal has a time complexity of O(n^2), where "n" is the number of nodes in the network. <br />
+We write 3 tests in JUnit, and for each of them we check assertEquals for both the maximum cumulative probability (known optimum) and the safest path found (known optimim) with out algorithm inside the network. <br />

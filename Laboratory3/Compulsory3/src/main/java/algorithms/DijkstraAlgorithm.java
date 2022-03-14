@@ -11,9 +11,10 @@ public class DijkstraAlgorithm {
     static public final double INFINITY = Double.MAX_VALUE;
     private Node startNode;
     private Map<Node, Double> minCostPaths;
+    private Network network;
 
-    public DijkstraAlgorithm(Node node) {
-        this.startNode = node;
+    public DijkstraAlgorithm(Network network) {
+        this.network = network;
         this.minCostPaths = new TreeMap<>(Comparator.comparing(Node::getName));
     }
 
@@ -40,7 +41,8 @@ public class DijkstraAlgorithm {
     }
 
     // We use this algorithm to find the minimum path from the starting node to the other nodes in the network
-    public void dijkstraAlgorithm(Network network) {
+    public void dijkstraAlgorithm(Node startNode) {
+        this.startNode = startNode;
         // Initially all the nodes are not visited
         Map<Node, Boolean> visited = new HashMap<>();
         for (Node node : network.getNodeList())

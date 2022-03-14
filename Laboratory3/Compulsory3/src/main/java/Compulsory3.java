@@ -1,8 +1,11 @@
 import algorithms.DijkstraAlgorithm;
+import algorithms.SafestPathAlgorithm;
 import network.*;
 import nodes.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Compulsory3 {
     public static void main(String[] args) {
@@ -24,7 +27,7 @@ public class Compulsory3 {
             network.addLinkToNode("v1", "v2", 10, 0.3);
             network.addLinkToNode("v1", "v3", 50, 0.5);
             network.addLinkToNode("v2", "v3", 20, 0.1);
-            network.addLinkToNode("v2", "v4", 20, 0);
+            network.addLinkToNode("v2", "v4", 20, 0.5);
             network.addLinkToNode("v2", "v5", 10, 0.7);
             network.addLinkToNode("v3", "v4", 20, 0.25);
             network.addLinkToNode("v4", "v5", 30, 0.54);
@@ -47,9 +50,10 @@ public class Compulsory3 {
 
         network.displayIdentifiableNodes();
         System.out.print("\n\n\n");
+        network.listShortestPathsIDNodes();
 
-        DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(network.getNodeList().get(0));
-        dijkstraAlgorithm.dijkstraAlgorithm(network);
-        dijkstraAlgorithm.printMinCostPaths();
+        SafestPathAlgorithm safestPathAlgorithm = new SafestPathAlgorithm(network);
+        safestPathAlgorithm.getBestPath(network.getNodeList().get(0), network.getNodeList().get(4));
+        safestPathAlgorithm.printSafestPath();
     }
 }

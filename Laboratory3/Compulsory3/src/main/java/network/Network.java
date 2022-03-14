@@ -1,19 +1,22 @@
 package network;
 
+import algorithms.DijkstraAlgorithm;
 import nodes.Identifiable;
 import nodes.Node;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 // A network contains a list of nodes which are identified by their IDs (names)
 public class Network {
-    private ArrayList<Node> nodeList = new ArrayList<>();
+    private List<Node> nodeList;
 
     public Network() {
+        this.nodeList = new ArrayList<>();
     }
 
-    public ArrayList<Node> getNodeList() {
+    public List<Node> getNodeList() {
         return nodeList;
     }
 
@@ -96,8 +99,8 @@ public class Network {
         }
     }
 
-    public void displayIdentifiableNodes() {
-        ArrayList<Node> identifiableNodes = new ArrayList<>();
+    public List<Node> displayIdentifiableNodes() {
+        List<Node> identifiableNodes = new ArrayList<>();
         for (Node node : nodeList) {
             if (node instanceof Identifiable)
                 identifiableNodes.add(node);
@@ -106,5 +109,32 @@ public class Network {
         System.out.println("The identifiable nodes list:");
         for (Node node : identifiableNodes)
             System.out.println(node);
+        return identifiableNodes;
+    }
+
+    public List<Node> getIdentifiableNodes() {
+        List<Node> identifiableNodes = new ArrayList<>();
+        for (Node node : nodeList) {
+            if (node instanceof Identifiable)
+                identifiableNodes.add(node);
+        }
+        identifiableNodes.sort(Comparator.comparing(o -> ((Identifiable) o).getIpAddress()));
+        return identifiableNodes;
+    }
+
+
+    public void listShortestPathsIDNodes() {
+        List<Node> identifiableNodes = new ArrayList<>();
+        identifiableNodes = this.getIdentifiableNodes();
+        System.out.print("\n\n\n");
+
+        DijkstraAlgorithm dijkstraAlgorithm = new DijkstraAlgorithm(this);
+        // For each node in the identifiableNodes list, apply Dijkstra's shortest path algorithm
+        for (Node node : identifiableNodes) {
+            dijkstraAlgorithm.dijkstraAlgorithm(node);
+            dijkstraAlgorithm.printMinCostPaths();
+            System.out.print("\n\n");
+        }
+        System.out.print("\n\n\n");
     }
 }
