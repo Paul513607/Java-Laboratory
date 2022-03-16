@@ -33,7 +33,13 @@ public class Compulsory4 {
         streetList.add(new Street("s15", 3.0, "i7", "i9"));
         streetList.add(new Street("s16", 1.0, "i8", "i9"));
 
-        streetList.sort((o1, o2) -> o1.getLength().compareTo(o2.getLength()));
+        // lambda sorting
+        // streetList.sort((o1, o2) -> o1.getLength().compareTo(o2.getLength()));
+
+        // method reference sorting
+        streetList = streetList.stream()
+                .sorted(Comparator.comparing(Street::getLength))
+                        .toList();
 
         System.out.println("");
         streetList.stream()
