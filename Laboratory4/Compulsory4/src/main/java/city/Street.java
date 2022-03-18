@@ -2,16 +2,21 @@ package city;
 
 import java.util.Objects;
 
+// A class which represents a street in the city as well as an edge in the city graph
 public class Street {
     String name;
     Double length;
-    String interName1, interName2;
+    String interId1, interId2;
 
-    public Street(String name, Double length, String interName1, String interName2) {
+    public Street(String name, Double length, String interId1, String interId2) {
         this.name = name;
         this.length = length;
-        this.interName1 = interName1;
-        this.interName2 = interName2;
+        this.interId1 = interId1;
+        this.interId2 = interId2;
+    }
+
+    public Street() {
+
     }
 
     public String getName() {
@@ -30,20 +35,20 @@ public class Street {
         this.length = length;
     }
 
-    public String getInterName1() {
-        return interName1;
+    public String getInterId1() {
+        return interId1;
     }
 
-    public void setInterName1(String interName1) {
-        this.interName1 = interName1;
+    public void setInterId1(String interId1) {
+        this.interId1 = interId1;
     }
 
-    public String getInterName2() {
-        return interName2;
+    public String getInterId2() {
+        return interId2;
     }
 
-    public void setInterName2(String interName2) {
-        this.interName2 = interName2;
+    public void setInterId2(String interId2) {
+        this.interId2 = interId2;
     }
 
     @Override
@@ -51,8 +56,8 @@ public class Street {
         return "Street{" +
                 "name='" + name + '\'' +
                 ", length=" + length +
-                ", interName1='" + interName1 + '\'' +
-                ", interName2='" + interName2 + '\'' +
+                ", interId1='" + interId1 + '\'' +
+                ", interId2='" + interId2 + '\'' +
                 '}';
     }
 
@@ -61,11 +66,11 @@ public class Street {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Street street = (Street) o;
-        return Objects.equals(name, street.name) && Objects.equals(length, street.length) && Objects.equals(interName1, street.interName1) && Objects.equals(interName2, street.interName2);
+        return Objects.equals(name, street.name) && Objects.equals(length, street.length) && Objects.equals(interId1, street.interId1) && Objects.equals(interId2, street.interId2);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, length, interName1, interName2);
+        return Objects.hash(name, length, interId1, interId2);
     }
 }

@@ -2,11 +2,22 @@ package city;
 
 import java.util.Objects;
 
+// A class which represents a node in the city as well as a node in the city graph
 public class Intersection {
+    private String id;
     private String name;
 
-    public Intersection(String name) {
+    public Intersection(String id, String name) {
+        this.id = id;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -20,7 +31,8 @@ public class Intersection {
     @Override
     public String toString() {
         return "Intersection{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -29,11 +41,11 @@ public class Intersection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Intersection that = (Intersection) o;
-        return Objects.equals(name, that.name);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(id, name);
     }
 }

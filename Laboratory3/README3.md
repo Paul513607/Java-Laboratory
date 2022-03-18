@@ -5,6 +5,9 @@ Name: Samson Ioan-Paul <br />
 Group: 2A6 <br />
 
 # Laboratory3
+A network contains various nodes, such as computers, routers, switches, etc. Nodes in the network have unique names and may have other common properties such as hardware (MAC) address, the location on a map, etc. <br />
+Some of them are identified using an IP-address. Some of them are able to store data, having a storage capacity, expressed in gigabytes (GB). <br />
+The time (measured in milliseconds) required for a network packet to go from one node to another is known. <br />
 
 # Compulsory3
 The Network Routing Problem <br />
