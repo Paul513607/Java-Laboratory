@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-// A catalog of items. Has methods like add(Item ) and toString.
+/** A catalog of items. Has methods like add(Item ) and toString. */
 public class Catalog implements Serializable {
     private String name;
     private List<Item> itemList = new ArrayList<>();

@@ -6,7 +6,7 @@ import customexceptions.InvalidCatalogException;
 import java.io.File;
 import java.io.IOException;
 
-// A utility class to save the catalog to a file, or load one from a file
+/** A utility class to save the catalog to a file, or load one from a file. */
 public class CatalogUtil {
     public static void save(Catalog catalog, String filePath) {
         ObjectMapper objectMapper = new ObjectMapper();
