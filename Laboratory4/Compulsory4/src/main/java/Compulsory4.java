@@ -65,8 +65,8 @@ public class Compulsory4 {
     public static void main(String[] args) {
         RandomCityGenerator randomCityGenerator = new RandomCityGenerator();
         randomCityGenerator.generateRandomCity();
-        City city = randomCityGenerator.getCity();
-        // City city = createCity();
+        // City city = randomCityGenerator.getCity();
+        City city = createCity();
 
         city.printCitySchema();
         System.out.println("");

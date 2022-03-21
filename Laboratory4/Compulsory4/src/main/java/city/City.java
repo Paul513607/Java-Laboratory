@@ -153,10 +153,10 @@ public class City {
     }
 
     // This method applies Kruskal's MST Algorithm on the city graph of the city, finding the optimal way of putting data cables on the streets (edges)
-    public Set getOptimalDataCablesStreets() {
+    public Set<Street> getOptimalDataCablesStreets() {
         CityGraph<Intersection, Street> cityGraph = new CityGraph(this);
 
-        KruskalMinimumSpanningTree kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree(cityGraph);
+        KruskalMinimumSpanningTree<Intersection, Street> kruskalMinimumSpanningTree = new KruskalMinimumSpanningTree<>(cityGraph);
         double minimumCostTotalLength = kruskalMinimumSpanningTree.getMinimumSpanningTreeTotalWeight();
         Set<Street> optimalCablesStreets = kruskalMinimumSpanningTree.getMinimumSpanningTreeEdgeSet();
 
