@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class Compulsory5 {
-    private static void testCreateSave() {
+    private void testCreateSave() {
         Catalog catalog = new Catalog("myCatalog");
         var book = new Book("knuth67", "The Art Of Programming", "d:/books/programming/tacp.ps", 1967, List.of("Donald E. Knuth"), 20);
         var article = new Article("java17", "The Java Language Specification", "https://docs.oracle.com/javase/specs/jls/se17/html/index.html", 2021, List.of("James Gosling", "others"), "Oracle");
@@ -27,7 +27,7 @@ public class Compulsory5 {
         CatalogUtil.save(catalog, "/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory4/catalog.json");
     }
 
-    private static void testLoadCatalog() {
+    private void testLoadCatalog() {
         Catalog catalog = new Catalog();
         try {
             catalog = CatalogUtil.load("/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory4/catalog.json");
@@ -42,7 +42,8 @@ public class Compulsory5 {
     }
 
     public static void main(String[] args) {
-        testCreateSave();
-        testLoadCatalog();
+        Compulsory5 app = new Compulsory5();
+        app.testCreateSave();
+        app.testLoadCatalog();
     }
 }
