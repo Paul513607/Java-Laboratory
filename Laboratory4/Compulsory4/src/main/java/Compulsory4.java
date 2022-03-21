@@ -19,6 +19,7 @@ public class Compulsory4 {
         intersectionSet = Set.of(intersectionArray);
         intersectionSet.stream()
                 .forEach(intersection -> System.out.println(intersection));
+        System.out.println();
 
         List<Street> streetList = new LinkedList<>();
         streetList.add(new Street(faker.address().streetName(), 2.0, "i1", "i2"));
@@ -65,11 +66,16 @@ public class Compulsory4 {
     public static void main(String[] args) {
         RandomCityGenerator randomCityGenerator = new RandomCityGenerator();
         randomCityGenerator.generateRandomCity();
-        // City city = randomCityGenerator.getCity();
-        City city = createCity();
+        City city = randomCityGenerator.getCity();
+        // City city = createCity();
 
         city.printCitySchema();
         System.out.println("");
+
+        city.sortStreetsLengths();
+        System.out.println("The streets sorted by length:");
+        city.getStreetList().forEach(System.out::println);
+        System.out.println();
 
         city.printImportantStreets(2);
         System.out.println("");

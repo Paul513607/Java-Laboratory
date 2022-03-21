@@ -118,11 +118,13 @@ public class City {
                 });
     }
 
-    private void sortStreetsLengths() {
+    public void sortStreetsLengths() {
         // lambda sorting
         // streetList.sort((o1, o2) -> o1.getLength().compareTo(o2.getLength()));
 
         // method reference sorting
+        // Collections.sort(streetList, Comparator.comparing(Street::getLength));
+        // streetList.sort(Comparator.comparing(Street::getLength));
         streetList = streetList.stream()
                 .sorted(Comparator.comparing(Street::getLength))
                 .toList();
