@@ -154,7 +154,7 @@ public class City {
                 .forEach(street -> System.out.println(street));
     }
 
-    // This method applies Kruskal's MST Algorithm on the city graph of the city, finding the optimal way of putting data cables on the streets (edges)
+    /** This method applies Kruskal's MST Algorithm on the city graph of the city, finding the optimal way of putting data cables on the streets (edges) */
     public Set<Street> getOptimalDataCablesStreets() {
         CityGraph<Intersection, Street> cityGraph = new CityGraph(this);
 
