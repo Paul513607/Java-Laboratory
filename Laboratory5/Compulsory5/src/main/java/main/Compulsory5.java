@@ -171,23 +171,47 @@ public class Compulsory5 {
         System.out.println();
     }
 
+    private static void testCommandsFromArgs(Compulsory5 app, String[] args) throws CommandException {
+        Catalog catalog = app.createCatalog();
+        for (int index = 0; index < args.length; ++index) {
+            String command = args[index].toLowerCase();
+            switch (args[index]) {
+                case "add":
+                    app.testAddCommand(catalog);
+                    break;
+                case "list":
+                    app.testListCommand(catalog);
+                    break;
+                case "save":
+                    app.testSaveCommand(catalog, "/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory5/Compulsory5/src/main/resources/formatted-catalog/catalog.json");
+                    break;
+                case "load":
+                    app.testLoadCommand("/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory5/Compulsory5/src/main/resources/formatted-catalog/catalog.json");
+                    break;
+                case "view":
+                    app.testViewCommand(catalog.getItemList().get(1));
+                    break;
+                case "report":
+                    app.testReportCommand(catalog);
+                    break;
+                case "info":
+                    app.testInfoCommand("/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory5/Compulsory5/src/main/resources/formatted-catalog/catalog.json");
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Compulsory5 app = new Compulsory5();
         // app.testCreateSave();
         // app.testLoadCatalog();
-        /*Catalog catalog = app.createCatalog();
-        try {
-            app.testAddCommand(catalog);
-            app.testListCommand(catalog);
-            app.testSaveCommand(catalog, "/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory5/Compulsory5/src/main/resources/formatted-catalog/catalog.json");
-            app.testLoadCommand("/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory5/Compulsory5/src/main/resources/formatted-catalog/catalog.json");
-            app.testViewCommand(catalog.getItemList().get(1));
-            app.testReportCommand(catalog);
-            app.testInfoCommand("/home/paul/Facultate/An2/Semestru2/PA-Java/Laboratory/Java-Laboratory/Laboratory5/Compulsory5/src/main/resources/formatted-catalog/catalog.json");
+
+        if (args.length >= 1) {
+            try {
+                testCommandsFromArgs(app, args);
+            } catch (CommandException e) {
+                e.printStackTrace();
+            }
         }
-        catch (CommandException err) {
-            err.printStackTrace();
-        }*/
 
         ItemGraph<Object, ItemLink> itemGraph = app.getItemGraph();
         app.testMaximumMatchingAlg(itemGraph);
