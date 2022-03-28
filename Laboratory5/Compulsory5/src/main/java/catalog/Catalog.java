@@ -1,10 +1,7 @@
 package catalog;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import items.Item;
 import customexceptions.SameIdItemExistsException;
-import items.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +18,11 @@ public class Catalog implements Serializable {
 
     public Catalog(String name) {
         this.name = name;
+    }
+
+    public Catalog(Catalog catalog) {
+        this.name = catalog.getName();
+        this.itemList = catalog.getItemList();
     }
 
     public Catalog(String name, List<Item> itemList) {
@@ -77,5 +79,11 @@ public class Catalog implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(name, itemList);
+    }
+
+    public void printCatalog() {
+        System.out.println("Catalog name: " + name + "\nCatalog content:");
+        itemList.stream()
+                .forEach(System.out::println);
     }
 }

@@ -1,7 +1,6 @@
 package catalog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import customexceptions.InvalidCatalogException;
 
 import java.io.File;
 import java.io.IOException;

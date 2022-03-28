@@ -1,9 +1,5 @@
 package items;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import java.util.*;
 
 public class Article extends Item {
@@ -13,6 +9,10 @@ public class Article extends Item {
 
     public Article() {
         super();
+    }
+
+    public Article(String id) {
+        super(id);
     }
 
     public Article(String id, String name, String location, Integer publishedYear, List<String> authors, String publisher) throws IllegalArgumentException {

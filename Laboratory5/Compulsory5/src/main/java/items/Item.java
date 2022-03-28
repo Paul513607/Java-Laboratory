@@ -1,14 +1,10 @@
 package items;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /** The abstract class for an item in the catalog */
 @JsonTypeInfo( use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
@@ -21,8 +17,13 @@ public abstract class Item implements Serializable {
     protected String title;
     protected String location;
     protected Map<String, Object> tags = new HashMap<>();
+    protected Set<ClassificationType> classificationTypesSet = new HashSet<>();
 
     public Item() {
+    }
+
+    public Item(String id) {
+        this.id = id;
     }
 
     public Item(String id, String title, String location) {
@@ -62,12 +63,32 @@ public abstract class Item implements Serializable {
         this.location = location;
     }
 
+    public Set<ClassificationType> getClassificationTypesSet() {
+        return classificationTypesSet;
+    }
+
+    public void setClassificationTypesSet(Set<ClassificationType> classificationTypesSet) {
+        this.classificationTypesSet = classificationTypesSet;
+    }
+
+    public Map<String, Object> getTags() {
+        return tags;
+    }
+
     public void addReference(String key, Object reference) {
         tags.put(key, reference);
     }
 
     public void removeReference(String key) {
         tags.remove(key);
+    }
+
+    public void addClassification(ClassificationType type) {
+        classificationTypesSet.add(type);
+    }
+
+    public boolean containsClassification(ClassificationType type) {
+        return classificationTypesSet.contains(type);
     }
 
     @Override

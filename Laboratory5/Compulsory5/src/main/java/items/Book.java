@@ -1,9 +1,5 @@
 package items;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import java.util.*;
 
 public class Book extends Item {
@@ -13,6 +9,10 @@ public class Book extends Item {
 
     public Book() {
         super();
+    }
+
+    public Book(String id) {
+        super(id);
     }
 
     public Book(String id, String name, String location, Integer publishedYear, List<String> authors, Integer numberOfChapters) {
