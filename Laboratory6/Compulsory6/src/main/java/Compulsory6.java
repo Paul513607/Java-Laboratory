@@ -1,5 +1,7 @@
+import application.*;
+
 public class Compulsory6 {
     public static void main(String[] args) {
-        
+
     }
 }
