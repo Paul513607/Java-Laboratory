@@ -1,16 +1,21 @@
 package gamemodel;
 
+import lombok.*;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class GameNode {
+/** Class for modeling a node (stone, circle) in the game. */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+public class GameNode implements Serializable {
     private String id;
     private boolean isUsed = false;
     private PlayerName playerName = null;
     private double xCoord;
     private double yCoord;
-
-    public GameNode() {
-    }
 
     public GameNode(String id, double xCoord, double yCoord) {
         this.id = id;
@@ -26,55 +31,14 @@ public class GameNode {
         this.yCoord = yCoord;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public boolean isUsed() {
-        return isUsed;
-    }
-
-    public void setUsed(boolean used) {
-        isUsed = used;
-    }
-
-    public PlayerName getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(PlayerName playerName) {
-        this.playerName = playerName;
-    }
-
-    public double getxCoord() {
-        return xCoord;
-    }
-
-    public void setxCoord(double xCoord) {
-        this.xCoord = xCoord;
-    }
-
-    public double getyCoord() {
-        return yCoord;
-    }
-
-    public void setyCoord(double yCoord) {
-        this.yCoord = yCoord;
-    }
-
-    @Override
-    public String toString() {
-        return "GameNode{" +
-                "id='" + id + '\'' +
-                ", isUsed=" + isUsed +
-                ", playerName=" + playerName +
-                ", xCoord=" + xCoord +
-                ", yCoord=" + yCoord +
-                '}';
+    public GameNode(GameNode gameNode) {
+        if (gameNode != null) {
+            this.id = gameNode.id;
+            this.isUsed = gameNode.isUsed;
+            this.playerName = gameNode.playerName;
+            this.xCoord = gameNode.xCoord;
+            this.yCoord = gameNode.yCoord;
+        }
     }
 
     @Override
@@ -82,12 +46,12 @@ public class GameNode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameNode gameNode = (GameNode) o;
-        return Objects.equals(id, gameNode.id);
+        return Double.compare(gameNode.xCoord, xCoord) == 0 && Double.compare(gameNode.yCoord, yCoord) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isUsed, playerName);
+        return Objects.hash(id, isUsed, playerName, xCoord, yCoord);
     }
 
     public void takeNode(PlayerName playerName) {
@@ -96,7 +60,7 @@ public class GameNode {
     }
 
     public double getDistanceTo(GameNode gameNode) {
-        return Math.sqrt((xCoord - gameNode.getxCoord()) * (xCoord - gameNode.getxCoord()) +
-                (yCoord - gameNode.getyCoord()) * (yCoord - gameNode.getyCoord()));
+        return Math.sqrt((xCoord - gameNode.getXCoord()) * (xCoord - gameNode.getXCoord()) +
+                (yCoord - gameNode.getYCoord()) * (yCoord - gameNode.getYCoord()));
     }
 }

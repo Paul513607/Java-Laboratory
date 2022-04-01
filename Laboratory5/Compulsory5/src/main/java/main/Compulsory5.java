@@ -140,8 +140,8 @@ public class Compulsory5 {
     private ItemGraph<Object, ItemLink> getItemGraph() {
         RandomItemGraphGenerator randomItemGraphGenerator = new RandomItemGraphGenerator();
         ItemGraph<Object, ItemLink> itemGraph = new ItemGraph<>(randomItemGraphGenerator.generateItemClassifications());
-        System.out.println("Graph before (number of nodes: " + itemGraph.getNumberOfNodes() + "):");
-        // itemGraph.printGraph();
+        // System.out.println("Graph before (number of nodes: " + itemGraph.getNumberOfNodes() + "):");
+        itemGraph.printGraph();
         System.out.println();
         return itemGraph;
     }
