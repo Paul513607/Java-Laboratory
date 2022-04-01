@@ -41,7 +41,7 @@ In order to work with files we have a FileManager class. <br />
 The FileManager class exports the game as PNG when the button is clicked by __snapshoting__ the root JavaFX node onto a WritableImage, whilst a FileChooser let's the user choose where to store the file. <br />
 For serialization, we use FreeMarker. We'll serialize as JSON files, and the GameGraph, GameNode, GameEdge classes must implement Serializable. <br />
 For saving, the FileManager uses a FileChooser to let the user choose where to store the save, and it uses an ObjectMapper to write the GameGraph.class as json to that path.<br />
-For loading, the FileManager uses a FileChooser to let the user choose where to load the file from, and it uses an ObjectMapper to read from that file and deserialize it into a GameGraph object. That object is passed through to the MainFrame and DrawingPanel. The MainFrame stores it, and calls on DrawingPanel to draw the grid from the template GameGraph. <br />
+For loading, the FileManager uses a FileChooser to let the user choose where to load the file from, and it uses an ObjectMapper to read from that file and deserialize it into a GameGraph object. That object is passed through to the MainFrame and DrawingPanel. The MainFrame stores it, and calls on DrawingPanel to draw the grid from the template GameGraph. If we could not deserialize the file into a GameGraph we the load function throws an InvalidGameGraphException. <br />
 I also added functionality for a HelpButton and an ExitButton, and made an AlertBox class which creates a new scene with a given title and message. <br /> <br />
 
 
