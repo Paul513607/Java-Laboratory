@@ -18,6 +18,7 @@ After each extraction, the player will submit to the board all the letters. <br 
 Simulate the game using a thread for each player. <br />
 Pay attention to the synchronization of the threads when extracting tokens from the bag and when putting words on the board. <br /> <br />
 
+We create the following classes for the game: Tile (is a pair of letter-points), Bag (contains a list of tiles from which the players will be extracting), Board (cointains a list of words the players submit and prints them to the screen), Player (a class which implements the Runnable interface, so we can start multiple players at once. Players will extract tiles from the Bag and submit them to the Board), Game (contains the main method and manages the addition of players and the starting of the game). The Bag starts with 10 tiles of each letter from 'A' to 'Z', each worth a random number of points (between 1 and 10). In order to avoid race-conditions, the methods where we add/remove things to and from collections (like extractTiles and addWord) will be synchronized. After each extraction, the player concatenes the letters of the extracted tiles and sumbits the word to the board.
 
 
 # Homework7
