@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 @Data
+/** The class which manages the game. An object of this class adds players and starts the game. It contains the main method. */
 public class Game {
     private final Bag bag = new Bag(new Random());
     private final Board board = new Board();

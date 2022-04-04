@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.Objects;
 
 @Getter
+/** Class for a Tile in the game. A tile has a character and a number of points. */
 public class Tile {
     private final char letter;
     private final int points;
