@@ -3,6 +3,7 @@ package gamemodel;
 import application.AlertBox;
 import application.DrawingPanel;
 import application.MainFrame;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jgrapht.Graph;
@@ -14,6 +15,7 @@ import java.util.function.Supplier;
 
 /** Class for modeling the game (as a graph). */
 @Data
+@JsonIgnoreProperties({"type", "vertexSupplier", "edgeSupplier"})
 public class GameGraph<V extends GameNode, E extends GameEdge> implements Serializable, Graph<V, E> {
     private int noRows;
     private int noColumns;
