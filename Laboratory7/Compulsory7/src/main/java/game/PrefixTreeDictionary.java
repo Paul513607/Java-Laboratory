@@ -1,19 +1,33 @@
 package game;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import game.prefixtreeutil.PrefixTreeEdge;
 import game.prefixtreeutil.PrefixTreeNode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
+import lombok.Synchronized;
+import lombok.ToString;
 
-public class PrefixTreeDictionary implements Dictionary {
+/** A dictionary of words that uses a prefix tree for storing and searching. */
+@Getter(onMethod_ = {@Synchronized})
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@ToString
+public class PrefixTreeDictionary implements Dictionary, Serializable {
     List<PrefixTreeNode> nodes = new ArrayList<>();
     Set<PrefixTreeEdge> edges = new HashSet<>();
+
+    public PrefixTreeDictionary() {
+    }
 
     @Override
     public void readDictionaryFromFile(String filePath) throws FileNotFoundException {

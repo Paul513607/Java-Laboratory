@@ -1,5 +1,6 @@
 package game;
 
+import game.prefixtreeutil.PrefixTreeManager;
 import lombok.*;
 
 import java.io.FileNotFoundException;
@@ -10,7 +11,7 @@ import java.util.*;
 public class Game {
     private final Bag bag = new Bag();
     private final Board board = new Board();
-    private final Dictionary dictionary = new PrefixTreeDictionary();
+    private Dictionary dictionary = new PrefixTreeDictionary();
     private Timekeeper timekeeper;
 
     private final List<Player> players = new ArrayList<>();
@@ -29,9 +30,13 @@ public class Game {
 
     public void initDictionary(String filePath) {
         try {
-            dictionary.readDictionaryFromFile(filePath);
+            // dictionary.readDictionaryFromFile(filePath);
             System.out.println("Done reading");
-        } catch (FileNotFoundException e) {
+
+            PrefixTreeManager treeManager = new PrefixTreeManager();
+            // treeManager.saveDictionary((PrefixTreeDictionary) this.dictionary);
+            this.dictionary = treeManager.loadDictionary();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
