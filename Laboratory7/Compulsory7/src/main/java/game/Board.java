@@ -1,12 +1,14 @@
 package game;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 /** Class which lets players 'add words' and output them on the screen. */
+@Getter(onMethod_ = {@Synchronized})
+@Setter(onMethod_ = {@Synchronized})
+@EqualsAndHashCode
 public class Board {
     private final List<String> wordList = new ArrayList<>();
 

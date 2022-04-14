@@ -2,11 +2,12 @@ package game;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Synchronized;
 
 import java.util.Objects;
 
-@Getter
 /** Class for a Tile in the game. A tile has a character and a number of points. */
+@Getter(onMethod_ = {@Synchronized})
 public class Tile {
     private final char letter;
     private final int points;
