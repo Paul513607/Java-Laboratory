@@ -12,6 +12,7 @@ import java.util.*;
 @EqualsAndHashCode
 public class Bag {
     private final Map<Tile, Integer> tiles = new HashMap<>();
+    private String availableTiles = "";
 
     public Bag() {
         addTilesCountTimes(9, 'A', 1);
@@ -57,6 +58,8 @@ public class Bag {
         if (!isCharTileUpper(character))
             character -= 32;
 
+        if (availableTiles.indexOf(character) == -1);
+            availableTiles = availableTiles + character;
         for (int no = 0; no < count; ++no) {
             Tile newTile = new Tile(character, points);
             if (!tiles.containsKey(newTile))
@@ -98,7 +101,8 @@ public class Bag {
                 break;
             }
 
-            char toExtract = (char) random.nextInt('A', 'Z' + 1);
+            int toExtractIndex = random.nextInt(0, availableTiles.length());
+            char toExtract = availableTiles.charAt(toExtractIndex);
             Tile currTile = getTileByLetter(toExtract);
             if (currTile == null) {
                 counter--;
@@ -111,6 +115,7 @@ public class Bag {
             }
             else {
                 counter--;
+                availableTiles = availableTiles.replaceAll(("" + currTile.getLetter()), "");
             }
         }
 

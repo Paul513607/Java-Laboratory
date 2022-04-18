@@ -18,7 +18,11 @@ Create a singleton class in order to manage a connection to the database. <br />
 Create DAO classes that offer methods for creating countries and continents, and finding them by their ids and names; <br />
 Implement a simple test using your classes. <br /> <br />
 
-
+We create the database Cities using Postgresql. This database has the following tables: continents, countries, cities. <br />
+We write the sql script that creates the specified tables with the specified attributes. <br />
+We create the singleton class Database, in order to manage our database connections (the __getInstance__ method will return the created instance of __Connection__). <br />
+We create DAOs for Countries and Continents, implementing methods such as create, findById, findByName, findAll, and for CountriesDao findCountriesOnContinent method. <br />
+We create a simple test which adds a continent and two countries on that continent to the database, then extract them, do some assertions, and print them. <br /> <br />
 
 # Homework8
 Create the necessary table in order to store cities in your database. A city may contain: id, country, name, capital(0/1), latitude, longitude

@@ -2,9 +2,7 @@ package game;
 
 import lombok.*;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /** A class for the player logic. Players will be separate threads and each will play the game, extracting tiles and adding words to the board. */
 @Getter(onMethod_ = {@Synchronized})
@@ -15,6 +13,8 @@ public class Player implements Runnable {
     private String name;
     private Game game;
     private int totalPoints;
+
+    List<Tile> chosenTiles = new ArrayList<>();
 
     public Player(String name) {
         this.name = name;
@@ -42,11 +42,10 @@ public class Player implements Runnable {
         if (!game.isGameOn())
             return false;
 
-        Random random = new Random();
-        int howManyToExtract = random.nextInt(3, 11);
-        List<Tile> extracted = game.getBag().extractTiles(this, howManyToExtract);
+        List<Tile> extracted = new ArrayList<>(chosenTiles);
+        extracted.addAll(game.getBag().extractTiles(this, 7 - chosenTiles.size()));
 
-        if (extracted.isEmpty()) {
+        if (extracted.size() < 7) {
             synchronized (game.getBoard()) {
                 game.setGameOn(false);
                 game.getBoard().notifyAll();
@@ -54,19 +53,79 @@ public class Player implements Runnable {
             }
         }
 
-        // We use a StringBuilder for faster concatenation of the letters.
-        StringBuilder wordBuilder = new StringBuilder();
-        for (Tile tile : extracted) {
-            wordBuilder.append(tile.getLetter());
-        }
-        String word = wordBuilder.toString();
+        // try words of different sizes from the extracted tiles
+        boolean foundWord = false;
+        for (int wordSize = 7; wordSize >= 3; --wordSize) {
+            List<Tile> extractedCopy = new ArrayList<>(extracted);
 
-        checkForWord(word, extracted);
+            chosenTiles.clear();
+            Random random1 = new Random();
+            chosenTiles = new ArrayList<>();
+            while (chosenTiles.size() < wordSize && extractedCopy.size() > 0) {
+                int index = random1.nextInt(0, extractedCopy.size());
+                chosenTiles.add(extractedCopy.get(index));
+                extractedCopy.remove(extractedCopy.get(index));
+            }
+
+            // We use a StringBuilder for faster concatenation of the letters.
+            StringBuilder wordBuilder = new StringBuilder();
+            for (Tile tile : chosenTiles) {
+                wordBuilder.append(tile.getLetter());
+            }
+            String word = wordBuilder.toString();
+
+            foundWord = checkForWord(word, chosenTiles);
+            if (foundWord)
+                break;
+
+            // if we didn't find a word, we attempt to use the prefix search
+            List<String> wordsWithPrefix = game.getDictionary().searchForGivenPrefix(word);
+            List<Tile> remainingTiles = new ArrayList<>(extracted);
+            remainingTiles.removeAll(chosenTiles);
+            for (String newWord : wordsWithPrefix) {
+                String remainingLetters = newWord.substring(word.length());
+                boolean canFormWord = true;
+                List<Tile> remainingTilesCopy = new ArrayList<>(remainingTiles);
+                List<Tile> neededTiles = new ArrayList<>();
+
+                for (int chIndex = 0; chIndex < remainingLetters.length(); ++chIndex) {
+                    Tile tileForLetter = game.getBag().getTileByLetter(remainingLetters.charAt(chIndex));
+                    if (!remainingTilesCopy.contains(tileForLetter)) {
+                        canFormWord = false;
+                        break;
+                    }
+                    else {
+                        remainingTilesCopy.remove(tileForLetter);
+                        neededTiles.add(tileForLetter);
+                    }
+                }
+
+                if (canFormWord) {
+                    chosenTiles.addAll(neededTiles);
+                    foundWord = checkForWord(newWord, chosenTiles);
+                }
+            }
+
+            if (foundWord)
+                break;
+        }
+
+        if (foundWord) {
+            extracted.removeAll(chosenTiles);
+            chosenTiles.clear();
+            chosenTiles.addAll(extracted);
+        }
+        else {
+            for (Tile tile : extracted) {
+                game.getBag().addTilesCountTimes(1, tile.getLetter(), tile.getPoints());
+            }
+            chosenTiles.clear();
+        }
 
         return true;
     }
 
-    private void checkForWord(String word, List<Tile> extracted) throws InterruptedException {
+    private boolean checkForWord(String word, List<Tile> extracted) throws InterruptedException {
         synchronized (game.getBoard()) {
             while (!game.getCurrPlayer().equals(this) && game.isGameOn()) {
                 try {
@@ -91,12 +150,9 @@ public class Player implements Runnable {
             }
 
             Thread.sleep(500);
-        } else {
-            // System.out.println("[" + name + "] Trying " + word + "...");
-            for (Tile tile : extracted) {
-                game.getBag().addTilesCountTimes(1, tile.getLetter(), tile.getPoints());
-            }
+            return true;
         }
+        return false;
     }
 
     @Override

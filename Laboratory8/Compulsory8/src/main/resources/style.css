@@ -1,0 +1,6 @@
+#pane {
+    -fx-background-image: url("https://upload.wikimedia.org/wikipedia/commons/9/9e/Mollweide_projection_SW.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1920 1080;
+    -fx-background-position: center center;
+}
