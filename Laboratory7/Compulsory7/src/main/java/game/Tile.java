@@ -1,8 +1,6 @@
 package game;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Synchronized;
+import lombok.*;
 
 import java.util.Objects;
 

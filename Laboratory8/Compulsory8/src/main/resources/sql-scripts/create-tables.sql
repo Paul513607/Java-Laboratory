@@ -43,4 +43,12 @@ CREATE TABLE city_sister_relation (
 SELECT * FROM continents;
 SELECT * FROM countries;
 SELECT * FROM cities;
+SELECT * FROM city_sister_relation;
+*/
+
+/*
+DELETE FROM continents;
+DELETE FROM countries;
+DELETE FROM cities;
+DELETE FROM city_sister_relation;
 */

@@ -55,7 +55,7 @@ public class Player implements Runnable {
 
         // try words of different sizes from the extracted tiles
         boolean foundWord = false;
-        for (int wordSize = 7; wordSize >= 3; --wordSize) {
+        for (int wordSize = 7; wordSize >= 4; --wordSize) {
             List<Tile> extractedCopy = new ArrayList<>(extracted);
 
             chosenTiles.clear();

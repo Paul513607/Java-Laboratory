@@ -11,7 +11,7 @@ import java.util.*;
 public class Game {
     private final Bag bag = new Bag();
     private final Board board = new Board();
-    private Dictionary dictionary = new PrefixTreeDictionary();
+    private Dictionary dictionary = new MockDictionary();
     private Timekeeper timekeeper;
 
     private final List<Player> players = new ArrayList<>();

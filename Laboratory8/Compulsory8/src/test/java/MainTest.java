@@ -26,9 +26,8 @@ class MainTest {
 
             List<String> requiredCountries = List.of("Romania", "Ukraine");
 
-            assertEquals("Europe", continents.findById(1));
             assertEquals(requiredCountries, countries.findCountriesOnContinent(europeId));
-            System.out.println("Countries in " + continents.findById(1) + " are: " + countries.findCountriesOnContinent(europeId));  // prints all the countries in "Europe"
+            System.out.println("Countries in \"Europe\" are: " + countries.findCountriesOnContinent(europeId));  // prints all the countries in "Europe"
 
             // Database.getConnection().close();
             Database.closeConnection();
