@@ -41,7 +41,7 @@ public class MapDisplayTool extends Application implements MapComponentInitializ
         CityDao cityDao = new CityDao();
         List<City> cityList = cityDao.findAll();
 
-        Mercator mercator = new MyMercator();
+        Mercator mercator = new SphericalMercator();
         Pane root = new Pane();
         root.setId("pane");
 
@@ -52,8 +52,26 @@ public class MapDisplayTool extends Application implements MapComponentInitializ
             double cityLatitude = city.getLatitude();
             double cityLongitude = city.getLongitude();
 
+            /*
             double xCoordinate = mercator.xAxisProjection(cityLatitude);
             double yCoordinate = mercator.yAxisProjection(cityLongitude);
+
+            xCoordinate = (xCoordinate * SCALE_WIDTH) + WINDOW_WIDTH / 2.0;
+            yCoordinate = (yCoordinate * SCALE_HEIGHT) + WINDOW_HEIGHT / 2.0;
+            */
+
+            Point point = convertGeoToPixel(cityLatitude, cityLongitude, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 360, 180);
+            double xCoordinate = point.getX() + WINDOW_WIDTH / 2.0;
+            double yCoordinate = point.getY() - WINDOW_HEIGHT / 2.0;
+
+            if (city.getName().equals("Moscow")) {
+                System.out.println(xCoordinate);
+                System.out.println(yCoordinate);
+
+                System.out.println();
+                System.out.println(mercator.xAxisProjection(90));
+                System.out.println(mercator.yAxisProjection(90));
+            }
 
             Text cityNameLabel = new Text(xCoordinate - 30, yCoordinate, city.getName());
             cityNameLabel.setStyle("-fx-text-fill: white;");

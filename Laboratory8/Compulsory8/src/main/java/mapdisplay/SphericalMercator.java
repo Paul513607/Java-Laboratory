@@ -9,6 +9,6 @@ public class SphericalMercator extends Mercator {
 
     @Override
     double yAxisProjection(double input) {
-        return Math.log(Math.tan(Math.PI / 4 + Math.toRadians(input) / 2)) * RADIUS_MAJOR;
+        return Math.log(Math.tan(Math.PI / 4.0 + Math.toRadians(input) / 2.0)) * RADIUS_MAJOR;
     }
 }
