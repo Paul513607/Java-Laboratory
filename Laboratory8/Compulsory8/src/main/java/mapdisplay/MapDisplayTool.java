@@ -41,50 +41,30 @@ public class MapDisplayTool extends Application implements MapComponentInitializ
         CityDao cityDao = new CityDao();
         List<City> cityList = cityDao.findAll();
 
-        Mercator mercator = new EllipticalMercator();
+        Mercator mercator = new MyMercator();
         Pane root = new Pane();
         root.setId("pane");
-
-        double minX = Double.MAX_VALUE;
-        double minY = Double.MAX_VALUE;
-        for (City city : cityList) {
-            double xCoordinate = mercator.xAxisProjection(city.getLatitude());
-            double yCoordinate = mercator.yAxisProjection(city.getLongitude());
-            xCoordinate = ((int) (xCoordinate * SCALE_WIDTH));
-            yCoordinate = ((int) (yCoordinate * SCALE_HEIGHT));
-
-            if (xCoordinate < minX)
-                minX = xCoordinate;
-            if (yCoordinate < minY)
-                minY = yCoordinate;
-        }
 
         for (City city : cityList) {
             if (!city.isCapital())
                 continue;
 
-            double xCoordinatePrev = mercator.xAxisProjection(city.getLatitude());
-            double yCoordinatePrev = mercator.yAxisProjection(city.getLongitude());
+            double cityLatitude = city.getLatitude();
+            double cityLongitude = city.getLongitude();
 
-            double xCoordinate = xCoordinatePrev;
-            double yCoordinate = yCoordinatePrev;
-
-            xCoordinatePrev = ((int) (xCoordinatePrev * SCALE_WIDTH));
-            yCoordinatePrev = ((int) (yCoordinatePrev * SCALE_HEIGHT));
-
-            xCoordinate = ((int) (xCoordinate * SCALE_WIDTH)) + WINDOW_WIDTH / 2;
-            yCoordinate = ((int) (yCoordinate * SCALE_HEIGHT)) + WINDOW_HEIGHT / 2;
+            double xCoordinate = mercator.xAxisProjection(cityLatitude);
+            double yCoordinate = mercator.yAxisProjection(cityLongitude);
 
             Text cityNameLabel = new Text(xCoordinate - 30, yCoordinate, city.getName());
+            cityNameLabel.setStyle("-fx-text-fill: white;");
 
             Circle cityCircle = new Circle();
-            cityCircle.setFill(Color.BLUE);
+            cityCircle.setFill(Color.ORANGE);
             cityCircle.setRadius(5);
             cityCircle.setCenterX(xCoordinate);
             cityCircle.setCenterY(yCoordinate + 5);
 
             root.getChildren().addAll(cityNameLabel, cityCircle);
-
         }
 
         root.setOnMouseClicked(e -> System.out.println(e.getSceneX() + " " + e.getSceneY()));
@@ -93,6 +73,26 @@ public class MapDisplayTool extends Application implements MapComponentInitializ
         scene.getStylesheets().addAll(this.getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public Point convertGeoToPixel(double latitude, double longitude,
+                                  double mapWidth, // in pixels
+                                  double mapHeight, // in pixels
+                                  double mapLngLeft, // in degrees. the longitude of the left side of the map (i.e. the longitude of whatever is depicted on the left-most part of the map image)
+                                  double mapLngRight, // in degrees. the longitude of the right side of the map
+                                  double mapLatBottom) // in degrees.  the latitude of the bottom of the map
+    {
+        double mapLatBottomRad = mapLatBottom * Math.PI / 180;
+        double latitudeRad = latitude * Math.PI / 180;
+        double mapLngDelta = (mapLngRight - mapLngLeft);
+
+        double worldMapWidth = ((mapWidth / mapLngDelta) * 360) / (2 * Math.PI);
+        double mapOffsetY = (worldMapWidth / 2 * Math.log((1 + Math.sin(mapLatBottomRad)) / (1 - Math.sin(mapLatBottomRad))));
+
+        double x = (longitude - mapLngLeft) * (mapWidth / mapLngDelta);
+        double y = mapHeight - ((worldMapWidth / 2 * Math.log((1 + Math.sin(latitudeRad)) / (1 - Math.sin(latitudeRad)))) - mapOffsetY);
+
+        return new Point(x, y); // the pixel x,y value of this point on the map image
     }
 
     @Override
