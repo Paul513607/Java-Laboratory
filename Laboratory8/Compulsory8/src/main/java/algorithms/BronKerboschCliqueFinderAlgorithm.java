@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /** The class that applies the BronKerboschCliqueFinder algorithm on a given CityRelations graph. */
 public class BronKerboschCliqueFinderAlgorithm {
@@ -20,7 +21,7 @@ public class BronKerboschCliqueFinderAlgorithm {
     }
 
     public void runAlgorithm() {
-        BronKerboschCliqueFinder<City, CitySisterRelation> bronKerboschCliqueFinder = new BronKerboschCliqueFinder<>(graph);
+        BronKerboschCliqueFinder<City, CitySisterRelation> bronKerboschCliqueFinder = new BronKerboschCliqueFinder<>(graph, 60, TimeUnit.SECONDS);
 
         bronKerboschCliqueFinder.forEach(System.out::println);
 
@@ -31,6 +32,8 @@ public class BronKerboschCliqueFinderAlgorithm {
     }
 
     public void printSolution() {
+        System.out.println("Solution:");
         solution.forEach(System.out::println);
+        System.out.println("Solution size: " + solution.size());
     }
 }

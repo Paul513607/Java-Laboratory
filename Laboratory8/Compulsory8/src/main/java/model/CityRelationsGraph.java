@@ -4,6 +4,7 @@ import dao.CityDao;
 import dao.CitySisterRelationDao;
 import dao.CountryDao;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphType;
 
@@ -17,15 +18,13 @@ import java.util.stream.Collectors;
 
 /** The class representing the cities (nodes) and the city sister relations (edges) between them, as a graph. */
 @Data
+@NoArgsConstructor
 public class CityRelationsGraph<V extends City, E extends CitySisterRelation> implements Graph<V, E> {
     private final CityDao cityDao = new CityDao();
     private final CitySisterRelationDao relationDao = new CitySisterRelationDao();
 
     private Set<City> fakeCities = new HashSet<>();
     private Set<CitySisterRelation> sisterRelations = new HashSet<>();
-
-    public CityRelationsGraph() {
-    }
 
     public void initializeGraph() throws SQLException {
         sisterRelations = new HashSet<>(relationDao.findAll());
@@ -37,6 +36,7 @@ public class CityRelationsGraph<V extends City, E extends CitySisterRelation> im
             fakeCities.add(city1);
             fakeCities.add(city2);
         }
+        System.out.println(fakeCities);
     }
 
     @Override

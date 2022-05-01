@@ -2,6 +2,8 @@ package model;
 
 import lombok.Data;
 
+import java.util.Objects;
+
 /** The model for a city in the database. */
 @Data
 public class City extends MapObject {
@@ -31,5 +33,18 @@ public class City extends MapObject {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), country, capital, latitude, longitude);
     }
 }

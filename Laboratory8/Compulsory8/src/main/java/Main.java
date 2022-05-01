@@ -78,7 +78,7 @@ public class Main {
     public void createFakeCities() {
         FakeCityGenerator fakeCityGenerator = new FakeCityGenerator();
         try {
-            fakeCityGenerator.generate();
+            fakeCityGenerator.generate(1000);
         } catch (SQLException e) {
             e.printStackTrace();
             Database.rollback();

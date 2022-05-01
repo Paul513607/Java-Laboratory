@@ -21,13 +21,13 @@ import java.util.concurrent.TimeUnit;
 
 /** A class that generates a number of fake cities, and random sister relations between them, adding them to the database. */
 public class FakeCityGenerator {
-    public static final double SISTERHOOD_PROB = 0.1;
+    public static final double SISTERHOOD_PROB = 0.02;
     List<Integer> fakeCountryIds = new ArrayList<>();
 
     public FakeCityGenerator() {
     }
 
-    public void generate() throws SQLException {
+    public void generate(int howMany) throws SQLException {
         ContinentDao continentDao = new ContinentDao();
         continentDao.create("Imagination Continent");
         Database.getConnection().commit();
@@ -42,8 +42,7 @@ public class FakeCityGenerator {
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(1000);
 
         CityDao cityDao = new CityDao();
-        Faker faker = new Faker();
-        for (int generateCount = 0; generateCount < 1000; ++generateCount) {
+        for (int generateCount = 0; generateCount < howMany; ++generateCount) {
             final String name = "FakeCity_" + (generateCount + 1);
             executor.submit(() -> {
                 try {
