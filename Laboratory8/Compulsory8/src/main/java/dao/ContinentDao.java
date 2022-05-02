@@ -41,8 +41,8 @@ public class ContinentDao implements GenericDao<Continent> {
 
     @Override
     public Integer findByName(String name) throws SQLException {
-        Connection con = Database.getConnection();
-        // Connection con = DatabaseConPool.getConnection();
+        // Connection con = Database.getConnection();
+        Connection con = DatabaseConPool.getConnection();
         try (Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(
                      "SELECT id FROM continents WHERE name='" + name + "'")) {
