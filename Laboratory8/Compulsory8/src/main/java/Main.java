@@ -106,7 +106,7 @@ public class Main {
 
         // app.printTest();
         // app.importData();
-        // app.displayDistances();
+        app.displayDistances();
         app.displayMap(args);
         // app.conPoolTest();
         // app.createFakeCities();

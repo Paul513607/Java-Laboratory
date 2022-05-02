@@ -23,8 +23,6 @@ public class BronKerboschCliqueFinderAlgorithm {
     public void runAlgorithm() {
         BronKerboschCliqueFinder<City, CitySisterRelation> bronKerboschCliqueFinder = new BronKerboschCliqueFinder<>(graph, 60, TimeUnit.SECONDS);
 
-        bronKerboschCliqueFinder.forEach(System.out::println);
-
         for (Set<City> currSet : bronKerboschCliqueFinder) {
             if (currSet.size() >= 3)
                 solution.add(currSet);

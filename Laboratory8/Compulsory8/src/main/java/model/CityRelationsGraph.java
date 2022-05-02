@@ -36,7 +36,6 @@ public class CityRelationsGraph<V extends City, E extends CitySisterRelation> im
             fakeCities.add(city1);
             fakeCities.add(city2);
         }
-        System.out.println(fakeCities);
     }
 
     @Override
