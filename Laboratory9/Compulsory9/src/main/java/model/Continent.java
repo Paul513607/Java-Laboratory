@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +14,6 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Continent.findAll",
                 query = "SELECT e FROM Continent e ORDER BY e.name"),
-        @NamedQuery(name = "Continent.findById",
-                query = "SELECT e FROM Continent e WHERE e.id = ?1"),
         @NamedQuery(name = "Continent.findByName",
                 query = "SELECT e FROM Continent e WHERE e.name = ?1"),
 })
@@ -26,8 +26,19 @@ public class Continent implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "id")
     private Long id;
     private String name;
+    @OneToMany (
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "continentId", insertable = false)
+    private List<Country> countries = new ArrayList<>();
 
     public Continent(String name) {
+        this.name = name;
+    }
+
+    public Continent(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,12 +17,8 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "City.findAll",
                 query = "SELECT e FROM City e ORDER BY e.name"),
-        @NamedQuery(name = "City.findById",
-                query = "SELECT e FROM City e WHERE e.id = ?1"),
         @NamedQuery(name = "City.findByName",
                 query = "SELECT e FROM City e WHERE e.name = ?1"),
-        @NamedQuery(name = "City.findByCountry",
-                query = "SELECT e FROM City e WHERE e.country = ?1 ORDER BY e.name")
 })
 @Getter
 @Setter
@@ -31,35 +29,45 @@ public class City implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "id")
     private Long id;
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private Country country;
+    private Long countryId;
     private Boolean isCapital;
     private Double latitude;
     private Double longitude;
+    private Long population;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "city_sister_relation",
+            joinColumns = { @JoinColumn(name = "id1") },
+            inverseJoinColumns = { @JoinColumn(name = "id2") }
+    )
+    List<City> sisterCities = new ArrayList<>();
 
     public City(String name) {
         this.name = name;
-        this.country = null;
         this.isCapital = false;
         this.latitude = 0.0;
         this.longitude = 0.0;
+        this.population = 0L;
+        this.countryId = 0L;
     }
 
-    public City(String name, Country country) {
+    public City(String name, Long countryId, Boolean isCapital, Double latitude, Double longitude, Long population) {
         this.name = name;
-        this.country = country;
-        this.isCapital = false;
-        this.latitude = 0.0;
-        this.longitude = 0.0;
-    }
-
-    public City(String name, Country country, Boolean isCapital, Double latitude, Double longitude) {
-        this.name = name;
-        this.country = country;
+        this.countryId = countryId;
         this.isCapital = isCapital;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.population = population;
+    }
+
+    public City(long id, String name, long countryId, boolean isCapital, double latitude, double longitude, long population) {
+        this.id = id;
+        this.name = name;
+        this.countryId = countryId;
+        this.isCapital = isCapital;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.population = population;
     }
 
     @Override
@@ -67,10 +75,10 @@ public class City implements Serializable {
         return "City{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", country[=" + country.getId() + ", " + country.getName() +
-                "], isCapital=" + isCapital +
+                ", isCapital=" + isCapital +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", population=" + population +
                 '}';
     }
 

@@ -1,23 +1,32 @@
 package repositories;
 
+import abstractrepos.CountryRepo;
 import datasource.EntityManagerFactoryCreator;
+import model.City;
 import model.Continent;
 import model.Country;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
-public class CountryRepository {
-    @PersistenceContext
-    private final EntityManager em;
-
+public class CountryRepository extends AbstractRepository<Country, Long> implements CountryRepo {
     public CountryRepository(EntityManager em) {
-        this.em = em;
+        super(em);
     }
 
-    public void create(Country country) {
-        em.persist(country);
+    @Override
+    @Transactional
+    public void save(Country entity) {
+        em.persist(entity);
+    }
+
+    public Optional<Country> findByName(String name) {
+        return Optional.of((Country) em.createNamedQuery("Country.findByName")
+                .setParameter(1, name)
+                .getSingleResult());
     }
 
     public List<Country> findAll() {
@@ -25,26 +34,10 @@ public class CountryRepository {
                 .getResultList();
     }
 
-    public Country findById(Long id) {
-        return (Country) em.createNamedQuery("Country.findById")
-                .setParameter("id", id)
+    public String findCountryOfCity(City city) {
+        return (String) em.createNamedQuery("Country.findCountryOfCity")
+                .setParameter(1, city.getId())
                 .getSingleResult();
-    }
-
-    public Country findByName(String name) {
-        return (Country) em.createNamedQuery("Country.findByName")
-                .setParameter("name", name)
-                .getSingleResult();
-    }
-
-    public List<Country> findByContinent(Continent continent) {
-        return (List<Country>) em.createNamedQuery("Country.findByContinent")
-                .setParameter("continent", continent)
-                .getResultList();
-    }
-
-    public void remove(Country country) {
-        em.remove(country);
     }
 
     public void update() {

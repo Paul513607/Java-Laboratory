@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,12 +16,11 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Country.findAll",
                 query = "SELECT e FROM Country e ORDER BY e.name"),
-        @NamedQuery(name = "Country.findById",
-                query = "SELECT e FROM Country e WHERE e.id = ?1"),
         @NamedQuery(name = "Country.findByName",
                 query = "SELECT e FROM Country e WHERE e.name = ?1"),
-        @NamedQuery(name = "Country.findByContinent",
-                query = "SELECT e FROM Country e WHERE e.continent = ?1 ORDER BY e.name")
+        @NamedQuery(name = "Country.findCountryOfCity",
+                query = "SELECT cc.name FROM Country cc " +
+                        "JOIN City c ON cc.id=c.countryId WHERE c.id = ?1"),
 })
 @Getter
 @Setter
@@ -31,26 +32,34 @@ public class Country implements Serializable {
     private Long id;
     private String name;
     private String code;
-    @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    private Continent continent;
+    private Long continentId;
+    @OneToMany (
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "countryId", insertable = false)
+    private List<City> cities = new ArrayList<>();
 
     public Country(String name) {
         this.name = name;
         this.code = null;
-        this.continent = null;
     }
 
-    public Country(String name, String code, Continent continent) {
+    public Country(String name, String code) {
         this.name = name;
         this.code = code;
-        this.continent = continent;
     }
 
     public Country(String name, Continent continent) {
         this.name = name;
         this.code = null;
-        this.continent = continent;
+    }
+
+    public Country(Long id, String name, String code, Long continent) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.continentId = continent;
     }
 
     @Override
@@ -59,7 +68,6 @@ public class Country implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
-                ", continent=[" + continent.getId() + ", " + continent.getName() +
                 "]}";
     }
 

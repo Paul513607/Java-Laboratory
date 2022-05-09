@@ -1,50 +1,38 @@
 package repositories;
 
+import abstractrepos.CityRepo;
+import abstractrepos.CountryRepo;
 import datasource.EntityManagerFactoryCreator;
 import model.City;
+import model.Continent;
 import model.Country;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
-public class CityRepository {
-    @PersistenceContext
-    private final EntityManager em;
-
+public class CityRepository extends AbstractRepository<City, Long> implements CityRepo {
     public CityRepository(EntityManager em) {
-        this.em = em;
+        super(em);
     }
 
-    public void create(City city) {
-        em.persist(city);
+    @Override
+    @Transactional
+    public void save(City entity) {
+        em.persist(entity);
+    }
+
+    public Optional<City> findByName(String name) {
+        return Optional.of((City) em.createNamedQuery("City.findByName")
+                .setParameter(1, name)
+                .getSingleResult());
     }
 
     public List<City> findAll() {
         return (List<City>) em.createNamedQuery("City.findAll")
                 .getResultList();
-    }
-
-    public City findById(Long id) {
-        return (City) em.createNamedQuery("City.findById")
-                .setParameter("id", id)
-                .getSingleResult();
-    }
-
-    public City findByName(String name) {
-        return (City) em.createNamedQuery("City.findByName")
-                .setParameter(1, name)
-                .getSingleResult();
-    }
-
-    public List<City> findByCountry(Country country) {
-        return (List<City>) em.createNamedQuery("City.findByCountry")
-                .setParameter("country", country)
-                .getResultList();
-    }
-
-    public void remove(City city) {
-        em.remove(city);
     }
 
     public void update() {
