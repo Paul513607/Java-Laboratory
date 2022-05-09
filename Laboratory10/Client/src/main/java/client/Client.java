@@ -1,5 +1,9 @@
 package client;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +12,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+/** The basic TCP client class. */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client {
     private final String SERVER_ADDRESS = "127.0.0.1"; // localhost
     private final int PORT = 5000;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/** The server class. */
 public class Server {
     private final int PORT = 5000;
     private ServerSocket serverSocket = null;

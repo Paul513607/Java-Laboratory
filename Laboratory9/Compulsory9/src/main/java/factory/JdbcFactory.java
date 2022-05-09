@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/** A class which defines the JDBC factory implementation. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

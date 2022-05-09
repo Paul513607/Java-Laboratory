@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
+/** A class which defines the JPA factory implementation. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

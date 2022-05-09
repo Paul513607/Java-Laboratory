@@ -3,6 +3,7 @@ package util;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/** A singleton class for a timer. */
 @Data
 public class Timer {
     private static Timer timerInstance = null;

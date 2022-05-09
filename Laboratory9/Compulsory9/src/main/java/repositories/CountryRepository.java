@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/** A class for querying the countries table. */
 public class CountryRepository extends AbstractRepository<Country, Long> implements CountryRepo {
     public CountryRepository(EntityManager em) {
         super(em);

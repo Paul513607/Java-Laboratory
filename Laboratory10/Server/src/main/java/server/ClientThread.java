@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/** Class which handles a client. */
 @Data
 @NoArgsConstructor
 public class ClientThread extends Thread {

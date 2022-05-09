@@ -27,5 +27,24 @@ We create the following repositories: ContinentRepository, CountryRepository, Ci
 We write two tests, first one testing just the model with JPA, and the second one testing the EntityManagerCreator singleton and the repositories. <br /> <br />
 
 # Homework9
+Create all entity classes and repositories. Implement properly the one-to-many relationships. <br />
+Create a generic AbstractRepository using generics in order to simplify the creation of the repository classes. You may take a look at the CrudRepository interface from Spring Framework. <br />
+Insert, using JPA, a large number of cities in the database and log the execution time of your JPQL queries. <br />
+(+1p) Assume each city has a new property, its population. Use a constraint solver, such as Choco solver, OptaPlanner or ORTools, in order to find a set of cities having names that start with the same letter, the total sum of their population is between two given bounds and they are from different countries. <br /> <br />
+
+We create the entity classes and repositories for the Continent, Country and City classes. <br />
+We implement the one-to-many relationships by putting a list of sub-elements in the super-element, and an id of the super-element in the sub-elements. <br />
+We create AbstractRepository<T, ID> based on Spring's CrudRepository in which we define basic methods like findAll, save etc. Each of our repositories will extend this AbstractRepository. <br />
+We use a DatasetImporter to import a large number of continents, countries and cities from a dataset. The execution time of this operation was 1109.837651722s (seconds). <br />
+We use ChocoSolver's Model and Solver classes to define a model and solve the given problem. We initialize IntVars for city populations, first letters of name, and ids (with values from the array of cities). We call solver.solve() and print the first 10 solutions. <br /> <br />
 
 # Bonus9
+Implement properly the many-to-many sisterhood relationship. <br />
+Implement both the JDBC and JPA implementations and use an AbstractFactory in order to create the DAO objects (the repositories).
+The application will use JDBC or JPA depending on a parameter given in an initialization file. <br />
+You may also use an IoC container in order to inject the DAO implementations. <br /> <br />
+
+We implement the many-to-many sisterhood relationship of the city class, which creates a new table, citi_sister_relationship. <br />
+We implement the JDBC implementation as well.<br />
+The user can specify either 'jpa' or 'jdbc' at the command line in order for the AbstractFactory to initialize it's repositories with the right implementations. <br />
+We use spring's @Autowired annotation to do the dependency injection. <br /> <br />

@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/** A class for querying the cities table. */
 public class CityRepository extends AbstractRepository<City, Long> implements CityRepo {
     public CityRepository(EntityManager em) {
         super(em);

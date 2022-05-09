@@ -20,6 +20,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+/** A class which defines the model of a problem, and solves it,
+ * using ChocoSolver's Model and Solver.
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -100,7 +103,6 @@ public class ProblemSolver {
             if (!countryName1.equals(countryName2)) {
                 solution++;
                 System.out.println("Found solution " + solution + ": " + city1.getName() + ", " + city2.getName() +
-                        "; populations: " + population1 + " " + population2 +
                         "; of countries: " + countryName1 + " " + countryName2);
                 if (solution == 10)
                     break;

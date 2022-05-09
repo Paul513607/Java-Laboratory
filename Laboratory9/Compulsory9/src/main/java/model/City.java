@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/** The model of a city in the database. */
 @Entity
 @Table(name = "cities")
 @NamedQueries({

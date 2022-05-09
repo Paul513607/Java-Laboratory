@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/** A class for querying the continents table. */
 public class ContinentRepository extends AbstractRepository<Continent, Long> implements ContinentRepo {
     public ContinentRepository(EntityManager em) {
         super(em);

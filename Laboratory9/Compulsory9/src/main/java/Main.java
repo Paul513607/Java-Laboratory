@@ -107,8 +107,8 @@ public class Main {
         Continent continent = new Continent("TestContinent3");
         factory.getContinentRepo().save(continent);
 
-        //Continent continent1 = factory.getContinentRepo().findByName("TestContinent").get();
-        //System.out.println(continent1.getName() + " " + continent1.getId());
+        Continent continent1 = factory.getContinentRepo().findByName("TestContinent2").get();
+        System.out.println(continent1.getName() + " " + continent1.getId());
 
 
         // close the connection
@@ -127,7 +127,7 @@ public class Main {
         // main.testJPA();
         // main.testJPAWithRepositories();
         // main.testImportData();
-        main.testProblemSolver();
+        // main.testProblemSolver();
         try {
             main.testAbstractFactory(args);
         } catch (SQLException e) {
