@@ -35,9 +35,22 @@ Implement a timeout for a connection (a number of minutes). If the server does n
 (+0.5p) Create a SVG representation of the social network, using Apache Batik, or other technology. <br />
 (+0.5p) Upload a HTML document containing the social network representation directly from the application to a Web server. You may use JCraft for connecting to a server using SFTP and transferring a file (or a similar solution). <br /> <br />
 
+We create the model for the application: the User model, which has a @ManyToMany relationship with itself, for the friendships modelling and the Message model, which has the following attributes: two 'id' attributes, for the user who sent and the user who received the message, the 'content' attribute and the 'wasRead' attribute. <br />
+We implement the required commands and we use the Repositories for the model to add/extract data from the Database. Each command is a separate class, which implements the Command interface. <br />
+For each client thread, we set a timeout on the socket. When that time is up, the server's ServerSocket will be stopped, so no more accepting user connections. Same will happend is the user sends the command 'stop'.
+The server will keep count of the number of connections, and it will stop after a user sends 'stop' and all the connections have been closed. <br />
+Using the class TestSVGGen we generate a SVG based on the drawing we do in Swing's Graphics2D. The drawing is based on the database data. <br />
+Using the class SftpHandler we create a session on localhost, port 22 and, using the sftp protocol we upload the previously created SVG file only the server's "home". <br /> <br />
+
 
 # Bonus10
 Create a command that returns various properties of the social network. You may use JGraphT or other library. <br />
 Using a maximum network flow algorithm, determine the structural cohesion of the network. You may want to read this (combinatorial applications of network flows). <br /> <br />
+
+We start by creating the classes UserFriendship and UserGraph (which implements JGraptT's Graph<User, UserFriendship> interface), in order to model our social network as a graph. <br />
+We implement the class ProprietiesAnalyzer, which will find cliques (groups of friends) in out social network. We implement the command "proprieties" in order for users to view such cliques. <br />
+We also implement the class MaximumFlowAlgorithm, which applies JGraphT's EdmondsKarpMFImpl, in order to find the maximum flow between two users of our network. <br /> <br />
+
+
 
 
