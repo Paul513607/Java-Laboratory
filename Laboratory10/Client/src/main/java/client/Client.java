@@ -15,7 +15,6 @@ import java.util.Scanner;
 /** The basic TCP client class. */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Client {
     private final String SERVER_ADDRESS = "127.0.0.1"; // localhost
     private final int PORT = 5000;
@@ -42,7 +41,11 @@ public class Client {
                 }
 
                 String response = in.readLine();
+                response = response.replaceAll("\\|", "\n");
                 System.out.println(response);
+                if (response.equals("Server timeout")) {
+                    isMakingRequests = false;
+                }
             }
 
             socket.close();
