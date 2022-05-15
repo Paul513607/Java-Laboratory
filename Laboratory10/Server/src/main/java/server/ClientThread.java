@@ -49,6 +49,8 @@ public class ClientThread extends Thread {
                 return new SendCommand(args, user);
             case "read":
                 return new ReadCommand(args, user);
+            case "proprieties":
+                return new ProprietiesCommand(args, user);
             default:
                 return null;
         }

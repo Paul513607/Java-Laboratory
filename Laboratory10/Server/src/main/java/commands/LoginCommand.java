@@ -21,7 +21,12 @@ public class LoginCommand implements Command {
     private User currentUser;
     private String output;
 
+    private boolean statusCode;
     private String errorMsg;
+
+    public LoginCommand(List<String> args) {
+        this.args = args;
+    }
 
     @Override
     public String getOutput() {
@@ -36,12 +41,6 @@ public class LoginCommand implements Command {
     @Override
     public boolean isStatusCode() {
         return statusCode;
-    }
-
-    private boolean statusCode;
-
-    public LoginCommand(List<String> args) {
-        this.args = args;
     }
 
     @Override

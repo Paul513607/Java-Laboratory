@@ -13,7 +13,7 @@ public class Server {
     private final int PORT = 5000;
     private ServerSocket serverSocket = null;
     public boolean isStopped = false;
-    public int connectionCount = 1;
+    public int connectionCount = 0;
 
     public Server() {
     }
@@ -33,7 +33,7 @@ public class Server {
                 }
             }
 
-            if (connectionCount == 1) {
+            if (isStopped && connectionCount == 0) {
                 System.out.println("Server stopped.");
                 break;
             }

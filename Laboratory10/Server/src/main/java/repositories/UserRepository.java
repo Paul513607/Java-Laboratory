@@ -46,6 +46,12 @@ public class UserRepository extends AbstractRepository<User, Long> {
                 .getResultList();
     }
 
+    @Override
+    public List<User> findAll() {
+        return em.createQuery("SELECT t FROM User t", User.class)
+                .getResultList();
+    }
+
     public void update() {
         em.getTransaction().commit();
     }
