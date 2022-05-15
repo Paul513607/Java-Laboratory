@@ -20,6 +20,8 @@ modifying the name of a person, via a HTTP PUT request. <br />
 deleting a person, via a HTTP DELETE request. <br />
 Test your services using the browser and/or Postman. <br /> <br />
 
+We create a Spring Boot application which we connect to a Postgres Database. We create the elements of the MVCS classes for a user: UserEntity, UserDto for model, UserRepository for extracting users from the database, UserService for modelling the extracted data and UserController for implementing the REST API. We also create a ControllerAdvisor for exceptions. <br />
+We implement the mentioned methods for our REST API and test their functionality with Postman. <br /> <br />
 
 
 # Homework11
