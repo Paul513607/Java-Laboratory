@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Test;
 public class MyClassLoader {
     private final ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
-    public void loadClass(String name) {
+    public void loadClass(String path) {
         Class cls = null;
         try {
-            cls = classLoader.loadClass(name);
+            cls = classLoader.loadClass(path);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -52,10 +52,7 @@ public class MyClassLoader {
         Arrays.stream(cls.getMethods()).forEach(method -> {
             boolean isStatic = Modifier.isStatic(method.getModifiers());
             boolean hasNoParams = (method.getParameters().length == 0);
-            boolean isTestAnnotated = Arrays.stream(method.getAnnotations())
-                    .filter(annotation -> annotation.annotationType() == Test.class)
-                    .findFirst()
-                    .orElse(null) != null;
+            boolean isTestAnnotated = method.isAnnotationPresent(Test.class);
 
             if (isStatic && hasNoParams && isTestAnnotated) {
                 try {
