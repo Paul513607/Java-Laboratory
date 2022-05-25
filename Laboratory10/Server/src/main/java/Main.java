@@ -72,9 +72,9 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
 
-        // main.testSVG();
-        // main.testSftpUpload();
-        main.findMaximumFlow("paul", "mary");
+        main.testSVG();
+        main.testSftpUpload();
+        // main.findMaximumFlow("paul", "jason");
 
         Server server = new Server();
         try {
