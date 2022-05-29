@@ -29,13 +29,20 @@ Identify all public classes annotated with @Test and invoke the methods annotate
 If a method requires primitive (at least int) or String arguments, generate mock values for them. <br />
 Print a statistics regarding the tests. <br /> <br />
 
-
+We implement the class __ClassFileWalker__, which has two methods for walking through the files, one which uses the __JarFile__ class to get info about the .class files of the jar, and one which does a recursive walk through the folder, finding the .class files and getting info about them. <br />
+In order to print information like 'javap', the method __MyClassLoader.printClassInfo__ is used. It takes a Class object as parameter, and prints stuff like the class signature, fields, constructors and methods. <br />
+Inside the method __MyClassLoader.invokeTestMethodsOfClass__ we find all the classes annotated with __@MockAnnotation__ (custom annotation), find the methods annotated with __@Test__ and invoke them, generating parameters for those that have them. <br />
+In order to print a statistic about the tests, we put an assertion in each of them, and we count how many of them pass. <br /> <br />
 
 
 # Bonus12
 Consider the case when the input files are .java files and compile the source code before analyzing them. (use Java Compiler, for example). <br />
 Using additional annotations, implement non-functional tests over the methods in order to test their reliability and efficiency. <br />
 Use a bytecode manipulation and analysis framework, such as ASM, BCEL or Javassist in order to extract the bytecode of the class, perform bytecode instrumentation (inject code in some method) and generate dynamically a class. <br /> <br />
+
+We use the methods __MyClassLoader.compileFile__ and __ClassFileWalker.walkAndCompile__ in order to find and compile .java files, then we print information about them. <br />
+For a non-functional test, we implemented __MainTest.performanceTest__, which checks that the application does not take more than 10 seconds to run. <br />
+
 
 
 
