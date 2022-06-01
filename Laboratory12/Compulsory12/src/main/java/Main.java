@@ -54,11 +54,12 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         // main.testClassLoading();
-        // main.testDirOrJarTraversal();
-        try {
+        main.testDirOrJarTraversal();
+
+        /*try {
             main.testJavassistManipulation("java.util.ArrayList", "size");
         } catch (BadBytecode | NotFoundException | URISyntaxException | CannotCompileException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
